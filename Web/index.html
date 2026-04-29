@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Justificación de Inasistencias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <main class="page" id="contenido">
+    <section class="form-card">
+      <div class="form-header">
+        <p class="eyebrow">Solicitud estudiantil</p>
+        <h1>Formulario de Justificación de Inasistencias</h1>
+        <p class="subtitle">
+          Completa todos los campos y adjunta un documento o imagen que respalde la inasistencia.
+        </p>
+      </div>
+
+      <form class="justification-form" action="#" method="post" enctype="multipart/form-data">
+        <div class="field-group">
+          <label for="nombre">Nombre completo</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            placeholder="Ej: José Hernández"
+            required
+          >
+        </div>
+
+        <div class="field-group">
+          <label for="id">ID / Documento</label>
+          <input
+            type="text"
+            id="id"
+            name="id"
+            placeholder="Ej: 123456789"
+            required
+          >
+        </div>
+
+        <div class="field-group">
+          <label for="correo">Correo electrónico</label>
+          <input
+            type="email"
+            id="correo"
+            name="correo"
+            placeholder="Ej: correo@ejemplo.com"
+            required
+          >
+        </div>
+
+        <div class="field-group">
+          <label for="motivo">Motivo de inasistencia</label>
+          <select id="motivo" name="motivo" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="enfermedad">Enfermedad</option>
+            <option value="cita_medica">Cita médica</option>
+            <option value="calamidad_domestica">Calamidad doméstica</option>
+            <option value="tramite_personal">Trámite personal</option>
+            <option value="motivo_laboral">Motivo laboral</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="soporte">Documento o imagen de soporte</label>
+          <input
+            type="file"
+            id="soporte"
+            name="soporte"
+            accept=".pdf,.jpg,.jpeg,.png,.webp"
+            required
+          >
+          <small class="help-text">Formatos permitidos: PDF, JPG, PNG o WEBP.</small>
+        </div>
+
+        <button type="submit" class="submit-btn">Enviar justificación</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
