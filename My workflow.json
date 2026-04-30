@@ -1,0 +1,62 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/subir-archivo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1ea76323-ede4-4c3c-a70c-ef18502cad97",
+      "name": "Webhook",
+      "webhookId": "92242d22-7ccd-409e-bb45-83e30db07eaf"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"nombre\": {{ $json.body.nombre }},\n  \"documento: \"{{ $json.body.documento }},\n  \"correo\": {{ $json.body.correo }},\n  \"materias\": {{ $json.body[\"materias[]\"] }},\n  \"motivo\": {{ $json.body.motivo }}\n  \"descripcion\": {{ $json.body.descripcion }},\n}\n ",
+        "includeOtherFields": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "717713b4-2c79-4676-99fd-45c7f53ce87e",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a2097bfe-4863-4083-8ec6-635f777ee033",
+  "meta": {
+    "instanceId": "4d82a57d0cc0c17044044cae32566a10c7ad786a8855fe036fcaa4179c0a62bd"
+  },
+  "id": "YQwy8l3LxvikViCE",
+  "tags": []
+}
