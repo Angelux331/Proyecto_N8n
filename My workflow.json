@@ -10,28 +10,373 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
+        -656,
         0
       ],
-      "id": "1ea76323-ede4-4c3c-a70c-ef18502cad97",
+      "id": "05310c52-9431-4cec-bb0b-9e1f7aa0b860",
       "name": "Webhook",
       "webhookId": "92242d22-7ccd-409e-bb45-83e30db07eaf"
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={\n  \"nombre\": {{ $json.body.nombre }},\n  \"documento: \"{{ $json.body.documento }},\n  \"correo\": {{ $json.body.correo }},\n  \"materias\": {{ $json.body[\"materias[]\"] }},\n  \"motivo\": {{ $json.body.motivo }}\n  \"descripcion\": {{ $json.body.descripcion }},\n}\n ",
-        "includeOtherFields": "=",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2253161d-b1ea-40a1-a943-1106617a957c",
+              "name": "date",
+              "value": "={{ $now.toFormat(\"yyyy-MM-dd-HH-mm\") }} ",
+              "type": "string"
+            },
+            {
+              "id": "732ffcee-9a91-4097-87ad-2c2a6a188b3c",
+              "name": "id",
+              "value": "={{ Math.floor(Math.random()*1000) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": "",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        208,
-        0
+        -336,
+        112
       ],
-      "id": "717713b4-2c79-4676-99fd-45c7f53ce87e",
+      "id": "63711757-dd86-4ae8-bee4-2e7abcffed63",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "soporte",
+        "name": "={{\n  \"JUSTIFI-\" + $json.body.nombre +\n  \"-\" +\n  $node[\"Edit Fields\"].json.date\n}}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1GFofcYT9kd00Khdp4cI6l_t9b0sZEmeD",
+          "mode": "list",
+          "cachedResultName": "n8n pruebas",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1GFofcYT9kd00Khdp4cI6l_t9b0sZEmeD"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        112,
+        -16
+      ],
+      "id": "df74ef6d-407d-43bc-bbf6-1e018d38620b",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "pz3sDbvJbuBEVcrP",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY",
+          "mode": "list",
+          "cachedResultName": "N8n-Proyect",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DOCUMENTO": "={{ $('Webhook').item.json.body.documento }}",
+            "NOMBRE": "={{ $('Webhook').item.json.body.nombre }}",
+            "FECHA": "={{ $('Edit Fields').item.json.date }}",
+            "ID": "={{ $('Edit Fields').item.json.id }}",
+            "MATERIAS": "={{ \n  $('Webhook').item.json.body[\"materias[]\"]\n    .map(m => m.charAt(0).toUpperCase() + m.slice(1))\n    .join(\", \")\n}}",
+            "MOTIVO": "={{ \n  $('Webhook').item.json.body.motivo\n    .replace(/[-_]/g, \" \")\n    .replace(/\\s+/g, \" \")\n    .trim()\n    .toLowerCase()\n    .replace(/\\b\\w/g, c => c.toUpperCase())\n}}",
+            "DESCRIPCION": "={{ $('Webhook').item.json.body.descripcion }}",
+            "COMPROBANTE": "={{ $('Upload file').item.json.webViewLink }}",
+            "ESTATUS": "={{ $json.clasificacion }} {{ $json.confianza }}",
+            "CORREO": "={{ $('Webhook').item.json.body.correo }}",
+            "COMENTARIO": "={{ $json.motivo }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "DOCUMENTO",
+              "displayName": "DOCUMENTO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "NOMBRE",
+              "displayName": "NOMBRE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CORREO",
+              "displayName": "CORREO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "FECHA",
+              "displayName": "FECHA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MATERIAS",
+              "displayName": "MATERIAS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MOTIVO",
+              "displayName": "MOTIVO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DESCRIPCION",
+              "displayName": "DESCRIPCION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "COMPROBANTE",
+              "displayName": "COMPROBANTE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ESTATUS",
+              "displayName": "ESTATUS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "COMENTARIO",
+              "displayName": "COMENTARIO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1216,
+        -112
+      ],
+      "id": "9e832657-ac42-437c-ad4e-4d27e628a972",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hBtbO3X7c9gtjEiO",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        336,
+        -16
+      ],
+      "id": "44ed2d6f-feb0-4b33-95a0-647f58fa7be5",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "pz3sDbvJbuBEVcrP",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "17985e08-150c-4fee-9293-97f1c03b79c8",
+              "leftValue": "={{$binary.data.mimeType}}",
+              "rightValue": "image/",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        544,
+        -16
+      ],
+      "id": "1239c2de-faa3-48ff-afa4-4fb22e7eb63d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        96
+      ],
+      "id": "631d3b0b-0dbf-4b8e-b0f2-ef2b28b36260",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "Analiza la imagen proporcionada.\n\n1. Extrae TODO el texto visible (OCR).\n2. Determina si el documento corresponde a una justificación válida de inasistencia.\n3. Clasifica el documento en una de las siguientes categorías:\n   - VALIDA (documento real y justificable)\n   - INVALIDA (no justifica la inasistencia o es irrelevante)\n   - DUDOSA (puede ser válida pero no es clara o confiable)\n\n4. Explica brevemente la razón de la clasificación.\n\n5. Asigna un nivel de confianza del 0 al 100, donde:\n   - 0 = completamente falso o no confiable\n   - 100 = completamente real y confiable\n\nIMPORTANTE:\nEl nivel de confianza representa qué tan real, auténtica y válida es la excusa presentada en la imagen.\n\nResponde SOLO en JSON puro, sin usar ``` ni texto adicional:\n\n{\n  \"texto_extraido\": \"...\",\n  \"clasificacion\": \"VALIDA | INVALIDA | DUDOSA\",\n  \"confianza\": 0,\n  \"motivo\": \"...\"\n}",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        752,
+        -112
+      ],
+      "id": "6e496d82-fcb4-486f-a0ff-ea2ab2a07eaa",
+      "name": "Analyze an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "QC6v1fTRHg5ZdkFT",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.content.parts[0].text;\n\n// quitar ```json y ```\nconst cleaned = raw\n  .replace(/```json/g, \"\")\n  .replace(/```/g, \"\")\n  .trim();\n\n// convertir a objeto\nconst parsed = JSON.parse(cleaned);\n\nreturn [\n  {\n    json: parsed\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -112
+      ],
+      "id": "4808bd25-b571-4238-8f7f-aeb3599f3245",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "3d061746-43aa-4b75-b186-a090d5d80423",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -43,20 +388,120 @@
             "node": "Edit Fields",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        []
+      ]
+    },
+    "Analyze an image": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "a2097bfe-4863-4083-8ec6-635f777ee033",
+  "versionId": "9ed3bced-3f6c-4ed7-85b1-00d59bd34430",
   "meta": {
-    "instanceId": "4d82a57d0cc0c17044044cae32566a10c7ad786a8855fe036fcaa4179c0a62bd"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3dac6840e81e48375059cb8007cf50a4884ab686ce1bae975984ae1aff3b8695"
   },
-  "id": "YQwy8l3LxvikViCE",
+  "id": "N7y66eQnVBoq3AV0",
   "tags": []
 }
