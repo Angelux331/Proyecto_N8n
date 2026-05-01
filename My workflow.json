@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -448,
-        -32
+        -1280,
+        64
       ],
-      "id": "05310c52-9431-4cec-bb0b-9e1f7aa0b860",
+      "id": "b839e874-05e1-4e82-b82e-d8328d90e13e",
       "name": "Webhook",
       "webhookId": "92242d22-7ccd-409e-bb45-83e30db07eaf"
     },
@@ -41,10 +41,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -256,
-        64
+        -1088,
+        160
       ],
-      "id": "63711757-dd86-4ae8-bee4-2e7abcffed63",
+      "id": "c59714fd-1f8e-4f70-8a16-d262c29bc42d",
       "name": "Edit Fields"
     },
     {
@@ -70,14 +70,14 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        112,
-        -16
+        -720,
+        80
       ],
-      "id": "df74ef6d-407d-43bc-bbf6-1e018d38620b",
+      "id": "62e6506b-f2a6-4961-9440-ba5e894de42e",
       "name": "Upload file",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "pz3sDbvJbuBEVcrP",
+          "id": "55a1krluFATSNe4n",
           "name": "Google Drive account"
         }
       }
@@ -237,15 +237,15 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1328,
-        -16
+        496,
+        80
       ],
-      "id": "9e832657-ac42-437c-ad4e-4d27e628a972",
+      "id": "1f4cd746-2201-4ee1-8e30-ca47d257d50c",
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "hBtbO3X7c9gtjEiO",
-          "name": "Google Sheets account"
+          "id": "LiY02nqWxKM9X95f",
+          "name": "Google Sheets OAuth2 API"
         }
       }
     },
@@ -262,14 +262,14 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        336,
-        -16
+        -496,
+        80
       ],
-      "id": "44ed2d6f-feb0-4b33-95a0-647f58fa7be5",
+      "id": "27d7eb7e-03cd-4a10-8545-2a076daf3140",
       "name": "Download file",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "pz3sDbvJbuBEVcrP",
+          "id": "55a1krluFATSNe4n",
           "name": "Google Drive account"
         }
       }
@@ -301,10 +301,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        544,
-        -16
+        -288,
+        80
       ],
-      "id": "1239c2de-faa3-48ff-afa4-4fb22e7eb63d",
+      "id": "ad43f162-0f8c-46dd-a2c2-7d9ba9f819a1",
       "name": "If"
     },
     {
@@ -315,10 +315,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        752,
-        80
+        -80,
+        176
       ],
-      "id": "631d3b0b-0dbf-4b8e-b0f2-ef2b28b36260",
+      "id": "e6816f81-4a42-4cc5-bf0f-eda743895c89",
       "name": "Extract from File"
     },
     {
@@ -338,14 +338,14 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.2,
       "position": [
-        832,
-        -96
+        0,
+        0
       ],
-      "id": "6e496d82-fcb4-486f-a0ff-ea2ab2a07eaa",
+      "id": "baf88da7-f913-4c54-bfc2-8b8272bda36d",
       "name": "Analyze an image",
       "credentials": {
         "googlePalmApi": {
-          "id": "QC6v1fTRHg5ZdkFT",
+          "id": "RDoCAkivnKDaDO8M",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -357,10 +357,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        -16
+        288,
+        80
       ],
-      "id": "4808bd25-b571-4238-8f7f-aeb3599f3245",
+      "id": "967f73f2-20a5-4454-a62b-c7a0a523739a",
       "name": "Code in JavaScript"
     },
     {
@@ -372,10 +372,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -80,
-        -16
+        -912,
+        80
       ],
-      "id": "3d061746-43aa-4b75-b186-a090d5d80423",
+      "id": "9b6a0e24-01a3-488e-94b1-dfdeca24bb4e",
       "name": "Merge"
     },
     {
@@ -394,15 +394,251 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.2,
       "position": [
-        928,
-        80
+        96,
+        176
       ],
-      "id": "89a981db-fdc9-4652-9962-a06e66cbd553",
+      "id": "f6dc3709-87fe-45d7-8452-c149632e626e",
       "name": "Analyze document",
       "credentials": {
         "googlePalmApi": {
-          "id": "QC6v1fTRHg5ZdkFT",
+          "id": "RDoCAkivnKDaDO8M",
           "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1344,
+        496
+      ],
+      "id": "fcd97464-7f70-4769-b9e6-a4815e8ff79e",
+      "name": "Telegram Trigger",
+      "webhookId": "aa42a0a5-4df7-47f1-b4e8-34e0190b6cb6",
+      "credentials": {
+        "telegramApi": {
+          "id": "IlZNxFqgjDTU29G1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY",
+          "mode": "list",
+          "cachedResultName": "N8n-Proyect",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1v8k4MwGk3_Qq3bkJPCeGuLFONaN12mK3I0cjVVFQAuY/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "DOCUMENTO",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -928,
+        496
+      ],
+      "id": "89ca5625-54b7-4a8a-846c-3070c6bb1ddb",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "LiY02nqWxKM9X95f",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c781675d-5ef7-4284-851f-7cae6aaccba6",
+              "name": "DOCUMENTO",
+              "value": "={{ $json.DOCUMENTO }}",
+              "type": "number"
+            },
+            {
+              "id": "7ea1f08d-001e-4b46-9137-80f8b14a5720",
+              "name": "NOMBRE",
+              "value": "={{ $json.NOMBRE }}",
+              "type": "string"
+            },
+            {
+              "id": "302312a0-1ac9-4758-8272-ab80e6f1e521",
+              "name": "FECHA",
+              "value": "={{ $json.FECHA }}",
+              "type": "string"
+            },
+            {
+              "id": "caf76a2e-c812-49ce-b7a0-825449439f5a",
+              "name": "MATERIAS",
+              "value": "={{ $json.MATERIAS }}",
+              "type": "string"
+            },
+            {
+              "id": "ef028f7c-802f-47cd-902b-78e848a27065",
+              "name": "MOTIVO",
+              "value": "={{ $json.MOTIVO }}",
+              "type": "string"
+            },
+            {
+              "id": "092123dd-0836-465f-9073-f8cd8467ca58",
+              "name": "DESCRIPCION",
+              "value": "={{ $json.DESCRIPCION }}",
+              "type": "string"
+            },
+            {
+              "id": "52be24da-b71f-4bcb-a0e7-281299676d61",
+              "name": "COMPROBANTE",
+              "value": "={{ $json.COMPROBANTE }}",
+              "type": "string"
+            },
+            {
+              "id": "5ae37fe0-35c2-4767-b276-5e82c8b95eaa",
+              "name": "ESTATUS",
+              "value": "={{ $json.ESTATUS }}",
+              "type": "string"
+            },
+            {
+              "id": "3438e113-e8ee-443a-abed-f616eb9425c3",
+              "name": "COMENTARIO",
+              "value": "={{ $json.COMENTARIO }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        416
+      ],
+      "id": "f3936291-1aa7-4e95-a670-470f83fa3af3",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "hola",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -1136,
+        496
+      ],
+      "id": "3fcb4230-e49c-4e0a-8c2d-cf72116d26a5",
+      "name": "Send a text message",
+      "webhookId": "5dfdd25b-b638-44dd-bee6-77a3cff06f7a",
+      "credentials": {
+        "telegramApi": {
+          "id": "IlZNxFqgjDTU29G1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=📄 Últimos reportes de justificación\n\nDocumento: {{ $json.DOCUMENTO }}\n\n────────────────────────\n\n👤 Nombre: {{ $json.NOMBRE }}\n📅 Fecha: {{ $json.FECHA }}\n📚 Materias: {{ $json.MATERIAS }}\n📌 Motivo: {{ $json.MOTIVO }}\n\n📝 Descripción:\n{{ $json.DESCRIPCION }}\n\n📎 Comprobante: {{ $json.COMPROBANTE }}\n\n📊 Estatus: {{ $json.ESTATUS }}\n💬 Comentario: {{ $json.COMENTARIO }}\n\n────────────────────────",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        416
+      ],
+      "id": "5dd34a46-8000-403f-ad8b-5c1984c61dc5",
+      "name": "Send a text message1",
+      "webhookId": "5dfdd25b-b638-44dd-bee6-77a3cff06f7a",
+      "credentials": {
+        "telegramApi": {
+          "id": "IlZNxFqgjDTU29G1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d4c5a434-cf7d-4878-9a7b-1170fe0403a1",
+              "leftValue": "={{ $json.DOCUMENTO }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -720,
+        496
+      ],
+      "id": "890f4ce9-9e5a-43c0-a703-efbb82070b21",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=❌ No se encontró ningún reporte con el documento: {{ $json.DOCUMENTO }}\n\nVerifica el ID e intenta nuevamente.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -448,
+        560
+      ],
+      "id": "cba617f2-0509-4eb8-b4ce-3e874cd037ed",
+      "name": "Send a text message2",
+      "webhookId": "5dfdd25b-b638-44dd-bee6-77a3cff06f7a",
+      "credentials": {
+        "telegramApi": {
+          "id": "IlZNxFqgjDTU29G1",
+          "name": "Telegram account"
         }
       }
     }
@@ -445,11 +681,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Append row in sheet": {
-      "main": [
-        []
       ]
     },
     "Download file": {
@@ -535,6 +766,68 @@
           }
         ]
       ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -542,11 +835,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "b2019060-41a5-4417-bd46-e00b1837811c",
+  "versionId": "5f1ac91a-d90e-47c0-b347-aac91e4ae277",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "3dac6840e81e48375059cb8007cf50a4884ab686ce1bae975984ae1aff3b8695"
+    "instanceId": "00a9461013c69da86ec7012f69a8b9d99ac4447cc087bba6aaca55468c7b11f6"
   },
-  "id": "N7y66eQnVBoq3AV0",
+  "id": "446246Leo9lDJGsC",
   "tags": []
 }
