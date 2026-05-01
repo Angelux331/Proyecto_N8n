@@ -10,8 +10,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -656,
-        0
+        -448,
+        -32
       ],
       "id": "05310c52-9431-4cec-bb0b-9e1f7aa0b860",
       "name": "Webhook",
@@ -24,7 +24,7 @@
             {
               "id": "2253161d-b1ea-40a1-a943-1106617a957c",
               "name": "date",
-              "value": "={{ $now.toFormat(\"yyyy-MM-dd-HH-mm\") }} ",
+              "value": "={{ $now.toFormat(\"yyyy-MM-dd HH:mm\") }} ",
               "type": "string"
             },
             {
@@ -41,8 +41,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -336,
-        112
+        -256,
+        64
       ],
       "id": "63711757-dd86-4ae8-bee4-2e7abcffed63",
       "name": "Edit Fields"
@@ -105,7 +105,7 @@
             "DOCUMENTO": "={{ $('Webhook').item.json.body.documento }}",
             "NOMBRE": "={{ $('Webhook').item.json.body.nombre }}",
             "FECHA": "={{ $('Edit Fields').item.json.date }}",
-            "ID": "={{ $('Edit Fields').item.json.id }}",
+            "ID": "={{ $('Upload file').item.json.id }}",
             "MATERIAS": "={{ \n  $('Webhook').item.json.body[\"materias[]\"]\n    .map(m => m.charAt(0).toUpperCase() + m.slice(1))\n    .join(\", \")\n}}",
             "MOTIVO": "={{ \n  $('Webhook').item.json.body.motivo\n    .replace(/[-_]/g, \" \")\n    .replace(/\\s+/g, \" \")\n    .trim()\n    .toLowerCase()\n    .replace(/\\b\\w/g, c => c.toUpperCase())\n}}",
             "DESCRIPCION": "={{ $('Webhook').item.json.body.descripcion }}",
@@ -237,8 +237,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1216,
-        -112
+        1328,
+        -16
       ],
       "id": "9e832657-ac42-437c-ad4e-4d27e628a972",
       "name": "Append row in sheet",
@@ -316,7 +316,7 @@
       "typeVersion": 1.1,
       "position": [
         752,
-        96
+        80
       ],
       "id": "631d3b0b-0dbf-4b8e-b0f2-ef2b28b36260",
       "name": "Extract from File"
@@ -338,8 +338,8 @@
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1.2,
       "position": [
-        752,
-        -112
+        832,
+        -96
       ],
       "id": "6e496d82-fcb4-486f-a0ff-ea2ab2a07eaa",
       "name": "Analyze an image",
@@ -352,13 +352,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const raw = $json.content.parts[0].text;\n\n// quitar ```json y ```\nconst cleaned = raw\n  .replace(/```json/g, \"\")\n  .replace(/```/g, \"\")\n  .trim();\n\n// convertir a objeto\nconst parsed = JSON.parse(cleaned);\n\nreturn [\n  {\n    json: parsed\n  }\n];"
+        "jsCode": "let raw = $json.content?.parts?.[0]?.text || \"\";\n\n// 1. Limpiar posibles bloques markdown\nraw = raw\n  .replace(/```json/g, \"\")\n  .replace(/```/g, \"\")\n  .trim();\n\n// 2. Intentar extraer SOLO el JSON (por si viene texto alrededor)\nconst jsonMatch = raw.match(/\\{[\\s\\S]*\\}/);\n\nif (!jsonMatch) {\n  throw new Error(\"No valid JSON found in Gemini response\");\n}\n\nlet cleaned = jsonMatch[0];\n\n// 3. Parse seguro\nlet parsed;\n\ntry {\n  parsed = JSON.parse(cleaned);\n} catch (error) {\n  throw new Error(\"JSON parse error: \" + error.message + \" | Raw: \" + cleaned);\n}\n\n// 4. Retorno limpio para n8n\nreturn [\n  {\n    json: parsed\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
-        -112
+        1120,
+        -16
       ],
       "id": "4808bd25-b571-4238-8f7f-aeb3599f3245",
       "name": "Code in JavaScript"
@@ -373,10 +373,38 @@
       "typeVersion": 3.2,
       "position": [
         -80,
-        -32
+        -16
       ],
       "id": "3d061746-43aa-4b75-b186-a090d5d80423",
       "name": "Merge"
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "Analiza el documento PDF proporcionado.\n\n1. Extrae TODO el texto del documento (si el PDF contiene texto digital úsalo directamente, si no, realiza OCR sobre el contenido visual).\n2. Identifica si el documento corresponde a una justificación válida de inasistencia académica o laboral.\n3. Clasifica el documento en una de las siguientes categorías:\n   - VALIDA (documento real, coherente y justificable)\n   - INVALIDA (no justifica la inasistencia o no es relevante)\n   - DUDOSA (podría ser válida pero no es clara, está incompleta o genera sospecha)\n\n4. Explica brevemente la razón de la clasificación.\n\n5. Evalúa un nivel de confianza del 0 al 100 basado en:\n   - Autenticidad del documento\n   - Coherencia del contenido\n   - Estructura y formalidad del texto\n   - Presencia de datos verificables (fechas, instituciones, firmas, etc.)\n\nIMPORTANTE:\nEl nivel de confianza representa qué tan real, auténtico y confiable es el documento.\n\nResponde SOLO en JSON puro, sin usar ``` ni texto adicional:\n\n{\n  \"texto_extraido\": \"...\",\n  \"clasificacion\": \"VALIDA | INVALIDA | DUDOSA\",\n  \"confianza\": 0,\n  \"motivo\": \"...\"\n}",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        928,
+        80
+      ],
+      "id": "89a981db-fdc9-4652-9962-a06e66cbd553",
+      "name": "Analyze document",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "QC6v1fTRHg5ZdkFT",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -455,7 +483,13 @@
     },
     "Extract from File": {
       "main": [
-        []
+        [
+          {
+            "node": "Analyze document",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Analyze an image": {
@@ -490,6 +524,17 @@
           }
         ]
       ]
+    },
+    "Analyze document": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -497,7 +542,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "9ed3bced-3f6c-4ed7-85b1-00d59bd34430",
+  "versionId": "b2019060-41a5-4417-bd46-e00b1837811c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3dac6840e81e48375059cb8007cf50a4884ab686ce1bae975984ae1aff3b8695"

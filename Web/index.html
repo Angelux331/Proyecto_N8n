@@ -27,8 +27,9 @@
         </div>
 
         <form
+          id="justificacionForm"
           class="justification-form"
-          action="http://localhost:5678/webhook-test/subir-archivo"
+          action="http://localhost:5678/webhook/subir-archivo"
           method="POST"
           enctype="multipart/form-data"
         >
@@ -131,7 +132,26 @@
 
           <button type="submit" class="submit-btn">Enviar justificación</button>
         </form>
+
+        <div id="popup" class="popup hidden">
+          <div class="popup-content">
+            <div class="check-circle">
+              <svg viewBox="0 0 52 52">
+                <circle cx="26" cy="26" r="25" fill="none" />
+                <path d="M14 27 l7 7 l17 -17" fill="none" />
+              </svg>
+            </div>
+
+            <h2>¡Enviado con éxito!</h2>
+            <p>
+              Tu solicitud fue registrada correctamente y está siendo procesada.
+            </p>
+
+            <button onclick="closePopup()">Entendido</button>
+          </div>
+        </div>
       </section>
     </main>
+    <script src="/app.js"></script>
   </body>
 </html>

@@ -232,6 +232,104 @@ input[type="file"]::file-selector-button:hover {
   background: rgba(76, 175, 80, 0.1);
 }
 
+.popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  animation: fadeIn 0.25s ease;
+}
+
+.popup-content {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 32px 26px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  width: 320px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  transform: scale(0.9);
+  animation: popIn 0.35s ease forwards;
+}
+
+.popup-content h2 {
+  margin-top: 14px;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.popup-content p {
+  margin-top: 10px;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.popup-content button {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #3b82f6;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.popup-content button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* CHECK ANIMADO */
+.check-circle {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+}
+
+.check-circle svg {
+  width: 100%;
+  height: 100%;
+  stroke: #22c55e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw 0.6s ease forwards;
+}
+
+/* ANIMACIONES */
+@keyframes popIn {
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .form-card {
     padding: 22px;
